@@ -41,6 +41,11 @@ def main():
     # create_column_widgets(day_after_tomorrow_frame, "2025-11-01", "Rainy", "🌧", "-2.0 C", "")
 
     data = get_four_day_weather()
+    if not data:
+        print("no data")
+    else:
+        print(data)
+
     create_column_widgets(yesterday_frame, data[0][0] ,data[0][1], data[0][2], data[0][3],"")
     create_column_widgets(today_frame, data[1][0] ,data[1][1], data[1][2], data[1][3], data[1][4])
     create_column_widgets(tomorrow_frame, data[2][0] ,data[2][1], data[2][2], data[2][3], "")
