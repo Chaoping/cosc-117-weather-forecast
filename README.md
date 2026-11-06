@@ -1,4 +1,4 @@
-# COSC 117 Weather Forecast (Buggy)
+# 2026 Fall COSC 117 Weather Forecast (Buggy)
 
 ## Installation
 
