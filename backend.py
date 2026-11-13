@@ -24,8 +24,9 @@ def process_current(current: ET.Element) -> tuple[str, str, str, ET.Element]:
 
 
 def calc_aqi_level(concentration, intervals) -> str:
+    cons = float(concentration)
     for interval_level, interval_max in intervals:
-        if concentration <= str(interval_max):
+        if cons <= float (interval_max):
             return interval_level
     return 7
 
@@ -63,6 +64,8 @@ def get_four_day_weather():
         yesterday_element = ET.fromstring(yesterday.text).find("forecast/forecastday/day")
         yesterday_weather, yesterday_code,yesterday_temp = process_day(yesterday_element)
         data.append((yesterday_string, yesterday_weather, WEATHER_EMOJI[yesterday_code], yesterday_temp+" c"))
+    else:
+        print("status code: ", yesterday.status_code)
     forecast = query_forecast()
     if forecast.status_code == 200:
         forecast_root_element = ET.fromstring(forecast.text)
@@ -81,5 +84,6 @@ def get_four_day_weather():
                 day_after_tomorrow_element = forecastday_element.find("day")
                 day_after_tomorrow_weather, day_after_tomorrow_code,day_after_tomorrow_temp = process_day(day_after_tomorrow_element)
                 data.append((day_after_tomorrow_string, day_after_tomorrow_weather, WEATHER_EMOJI[day_after_tomorrow_code], day_after_tomorrow_temp+" c"))
-
+    else:
+        print("yesterday status code: ", yesterday.status_code)
     return data
